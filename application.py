@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 
+from src.config import routes, exceptions
+
 from src.config.env import env
 
 description = """ 
@@ -16,6 +18,9 @@ def create_app() -> FastAPI:
         description=description,
         version="1.0"
     )
+
+    routes.init_app(app)
+    exceptions.init_app(app)
 
     return app
 

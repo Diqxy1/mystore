@@ -19,6 +19,6 @@ class DatabaseUrl:
         driver = f'{self._engine}+{self._driver}'
         credential = f'{self._user}:{self._password}'
         host = f'{self._host}:{self._port}'
-        server = f'{self._database}?charset={self._charset}'
+        server = f'hex_{self._database}?charset={self._charset}'
         database_url = f'{driver}://{credential}@{host}/{server}'
         return database_url
