@@ -4,11 +4,17 @@ from sqlalchemy.orm import Session
 
 from src.config.database import get_database
 
-from src.modules.user.models import UserModelPayload, CreateUserModel
+from src.modules.user.models import (
+    UserModelPayload, 
+    CreateUserModel,
+    AuthResponseModel,
+    LoginUserModel
+)
 from src.modules.user.services.create_user_service import CreateUserService
 from src.modules.user.services.list_user_service import ListUserService
 from src.modules.user.services.detail_user_service import DetailUserService
 from src.modules.user.services.delete_user_service import DeleteUserService
+from src.modules.user.services.login_user_service import LoginUserService
 
 from src.shared.exceptions.precondition_failed_exception import PreconditionFailedException
 
@@ -56,3 +62,12 @@ def delete_user(
 ):
     service = DeleteUserService(db)
     return service.execute(uuid)
+
+# POST /users/login
+@router.post('/login', response_model=AuthResponseModel)
+def login_user(
+    model: LoginUserModel,
+    db: Session = Depends(get_database)
+):
+    service = LoginUserService(db)
+    return service.execute(model)
