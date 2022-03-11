@@ -1,21 +1,27 @@
+import secrets
 from datetime import date
 from pydantic import BaseModel
 from fastapi_jwt_auth import AuthJWT
+
+
+from src.modules.address.models import CreateAddressModel, AddressPayloadModel
 
 class UserModelPayload(BaseModel):
     id: int
     uuid: str
     username: str
-    password: str
+    #password: str
     first_name: str
     second_name: str
     birth_date: date
     email: str
     phone: str
     is_active: bool
+    address: AddressPayloadModel
 
     class Config:
         orm_mode = True
+
 
 class CreateUserModel(BaseModel):
     username: str
@@ -25,6 +31,7 @@ class CreateUserModel(BaseModel):
     birth_date: date
     email: str
     phone: str
+    address: CreateAddressModel
 
 
 class LoginUserModel(BaseModel):
@@ -38,9 +45,10 @@ class AuthResponseModel(BaseModel):
     acess_token: str
     refresh_acess_token: str
 
+
 # JWT
 class Settings(BaseModel):
-    authjwt_secret_key: str = '78d660b3e36a91b1fbf7c254a576f4db0a5274efa4e56eb76a73539b9fe14a66'
+    authjwt_secret_key: str = secrets.token_hex()
 
 @AuthJWT.load_config
 def get_config():

@@ -4,6 +4,8 @@ from sqlalchemy.orm import Session
 from src.modules.user.entities.user import User
 from src.modules.user.models import UserModelPayload, CreateUserModel
 
+from src.modules.address.entities.address import Address
+
 from src.shared.middlewares.bcrypt import BcryptService
 from src.shared.exceptions.bad_exception import BadRequestException
 
@@ -20,11 +22,15 @@ class CreateUserService:
             raise BadRequestException(message='Nome de usuário já utilizado')
 
         #@TODO crypothografa senha
-        db_user = User(**model.dict())
+        db_user = User(**model.dict(exclude={"address"}))
         db_user.uuid = uuid4()
 
         hash_password = self._bcrypt_service.hash(model.password)
         db_user.password = hash_password
+
+        db_address = Address(**model.address.dict())
+
+        db_user.address = db_address
 
         self._db.add(db_user)
         self._db.commit()
