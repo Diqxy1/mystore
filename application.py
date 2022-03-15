@@ -1,6 +1,7 @@
 from fastapi import FastAPI
+from fastapi_jwt_auth.auth_jwt import AuthJWT
 
-from src.config import routes, exceptions
+from src.config import routes, exceptions, auth
 
 from src.config.env import env
 
@@ -25,3 +26,7 @@ def create_app() -> FastAPI:
     return app
 
 app = create_app()
+
+@AuthJWT.load_config
+def get_config():
+    return auth.Settings()

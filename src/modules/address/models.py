@@ -12,7 +12,6 @@ class AddressPayloadModel(BaseModel):
     country: str
     telephone: str
 
-
     class Config:
         orm_mode = True
 

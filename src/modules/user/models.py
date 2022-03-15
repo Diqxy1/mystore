@@ -44,12 +44,3 @@ class AuthResponseModel(BaseModel):
     username: str
     acess_token: str
     refresh_acess_token: str
-
-
-# JWT
-class Settings(BaseModel):
-    authjwt_secret_key: str = secrets.token_hex()
-
-@AuthJWT.load_config
-def get_config():
-    return Settings()
