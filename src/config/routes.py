@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from src.modules.user import routes as user_router
+from src.modules.users import routes as user_router
 from src.modules.two_factor import routes as two_factor_router
 
 def init_app(app: FastAPI) -> None:

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from src.modules.user.entities.user import User
+from src.modules.users.entities.user import User
 
 class DeleteUserService:
 

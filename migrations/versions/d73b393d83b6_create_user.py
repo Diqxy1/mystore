@@ -27,7 +27,9 @@ def upgrade():
         sa.Column('second_name', sa.String(120)),
         sa.Column('birth_date', sa.DateTime, nullable=False),
         sa.Column('email', sa.String(60), nullable=True, unique=True),
+        sa.Column('verified_email', sa.Boolean, nullable=True),
         sa.Column('phone', sa.String(20), nullable=True, unique=True),
+        sa.Column('verified_phone', sa.Boolean, nullable=True),
         sa.Column('is_active', sa.Boolean, default=False),
         sa.Column('created_at', sa.DateTime, nullable=False, server_default=sa.func.now()),
         sa.Column('updated_at', sa.DateTime, nullable=False, server_default=sa.func.now(), server_onupdate=sa.func.now())
@@ -35,4 +37,4 @@ def upgrade():
 
 
 def downgrade():
-    op.drop_column('users')
+    op.drop_table('users')

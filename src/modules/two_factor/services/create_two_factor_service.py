@@ -21,7 +21,7 @@ class CreateTwoFactorService:
 
         model.code = str(randrange(100_000, 999_999))
         model.token = str(uuid4())
-
+    
         if not model.expires_hours:
             model.expires_hours = 2
         

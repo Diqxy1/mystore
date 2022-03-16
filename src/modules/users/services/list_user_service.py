@@ -1,8 +1,8 @@
 from typing import List
 from sqlalchemy.orm import Session
 
-from src.modules.user.entities.user import User
-from src.modules.user.models import UserModelPayload
+from src.modules.users.entities.user import User
+from src.modules.users.models import UserModelPayload
 
 
 class ListUserService:

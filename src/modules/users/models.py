@@ -1,7 +1,6 @@
-import secrets
 from datetime import date
+from typing import Optional
 from pydantic import BaseModel
-from fastapi_jwt_auth import AuthJWT
 
 
 from src.modules.address.models import CreateAddressModel, AddressPayloadModel
@@ -15,7 +14,9 @@ class UserModelPayload(BaseModel):
     second_name: str
     birth_date: date
     email: str
+    verified_email: Optional[bool]
     phone: str
+    verified_phone: Optional[bool]
     is_active: bool
     address: AddressPayloadModel
 
@@ -44,3 +45,21 @@ class AuthResponseModel(BaseModel):
     username: str
     acess_token: str
     refresh_acess_token: str
+
+
+class CreatePhoneModel(BaseModel):
+    uuid: str
+    phone: str
+
+
+class PhoneModelResponse(BaseModel):
+    activate_phone_token: str
+
+
+class CreateEmailModel(BaseModel):
+    uuid: str
+    email: str
+
+
+class EmailModelResponse(BaseModel):
+    activate_email_token: str

@@ -2,8 +2,8 @@ from fastapi_jwt_auth.auth_jwt import AuthJWT
 from sqlalchemy.orm import Session
 from datetime import timedelta
 
-from src.modules.user.entities.user import User
-from src.modules.user.models import (
+from src.modules.users.entities.user import User
+from src.modules.users.models import (
     LoginUserModel, 
     UserModelPayload,
     AuthResponseModel

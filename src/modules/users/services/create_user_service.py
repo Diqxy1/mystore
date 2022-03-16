@@ -1,8 +1,8 @@
 from uuid import uuid4
 from sqlalchemy.orm import Session
 
-from src.modules.user.entities.user import User
-from src.modules.user.models import UserModelPayload, CreateUserModel
+from src.modules.users.entities.user import User
+from src.modules.users.models import UserModelPayload, CreateUserModel
 
 from src.modules.address.entities.address import Address
 
