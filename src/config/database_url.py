@@ -16,11 +16,12 @@ class DatabaseUrl:
         self._charset = charset or config(f'{prefix}_DB_CHARSET')
 
     def get_database_url(self):
-        """ driver = f'{self._engine}+{self._driver}'
-        credential = f'{self._user}:{self._password}'
-        host = f'{self._host}:{self._port}'
-        server = f'hex_{self._database}?charset={self._charset}'
-        database_url = f'{driver}://{credential}@{host}/{server}' """
-
-        database_url = config('CLEARDB_DATABASE_URL')
+        if config('ENVIRONMENT') == 'development':
+            driver = f'{self._engine}+{self._driver}'
+            credential = f'{self._user}:{self._password}'
+            host = f'{self._host}:{self._port}'
+            server = f'hex_{self._database}?charset={self._charset}'
+            database_url = f'{driver}://{credential}@{host}/{server}'
+        else:
+            database_url = config('CLEARDB_DATABASE_URL')
         return database_url

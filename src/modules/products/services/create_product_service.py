@@ -15,6 +15,7 @@ class CreateProductService:
         print(current_user)
         db_product = Product(**model.dict())
         db_product.user_id = current_user.id
+        db_product.category_id = model.category_id
         
         self._db.add(db_product)
         self._db.commit()

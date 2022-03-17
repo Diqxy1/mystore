@@ -17,7 +17,7 @@ def create_app() -> FastAPI:
         redoc_url='/',
         title='My Store',
         description=description,
-        version="1.0"
+        version="1.1"
     )
 
     routes.init_app(app)
