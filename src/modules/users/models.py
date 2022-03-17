@@ -24,6 +24,23 @@ class UserModelPayload(BaseModel):
         orm_mode = True
 
 
+class SignedUserModel(BaseModel):
+    id: int
+    uuid: str
+    username: str
+    first_name: str
+    second_name: str
+    birth_date: date
+    email: str
+    verified_email: Optional[bool]
+    phone: str
+    verified_phone: Optional[bool]
+    is_active: bool
+    address: AddressPayloadModel
+
+    class Config:
+        orm_mode = True
+
 class CreateUserModel(BaseModel):
     username: str
     password: str

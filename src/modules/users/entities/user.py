@@ -20,5 +20,6 @@ class User(Base):
     verified_phone = sa.Column(sa.Boolean, nullable=True)
     is_active = sa.Column(sa.Boolean, default=False)
     address = relationship('Address', back_populates='users', uselist=False)
+    products = relationship('Product', back_populates='users', uselist=False)
     created_at = sa.Column(sa.DateTime, nullable=False, server_default=sa.func.now())
     updated_at = sa.Column(sa.DateTime, nullable=False, server_default=sa.func.now(), server_onupdate=sa.func.now())

@@ -1,8 +1,6 @@
-import secrets
+from decouple import config
 from pydantic import BaseModel
 
 
-token = secrets.token_hex()
-
 class Settings(BaseModel):
-    authjwt_secret_key: str = token
+    authjwt_secret_key: str = config('JWT_KEY')
