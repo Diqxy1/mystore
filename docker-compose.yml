@@ -1,0 +1,56 @@
+version: '3.1'
+
+networks:
+  core:
+    external: true
+
+#BEGIN KAFKA
+services:
+  hex-zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    container_name: hex-zookeeper
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    ports:
+      - '2181:2181'
+    networks:
+      - core
+  hex-kafka:
+    image: 'bitnami/kafka:latest'
+    container_name: hex-kafka
+    ports:
+      - '9092:9092'
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=hex-zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - hex-zookeeper
+    networks:
+      - core
+#END KAFKA
+
+#BEGIN MYSQL
+  hex-mysql:
+    image: mysql:5.7.16
+    container_name: hex-mysql
+    working_dir: /var/data
+    command: mysqld
+    expose:
+      - "3306"
+    ports:
+      - "43307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123
+      - MYSQL_DATABASE=hexcore
+      - MYSQL_USER=viktor
+      - MYSQL_PASSWORD=123
+      - TZ=America/Denver
+    volumes:
+      - ./mysql/volume/mysql:/var/lib/mysql
+      - ./mysql/volume/data:/var/data
+    networks: 
+      - core
+#END MYSQL
